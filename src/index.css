@@ -2,26 +2,164 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-   
+    /* Core Design System Colors */
+    --primary: 28 60 60; /* Dark teal/green from LangChain branding */
+    --primary-foreground: 255 255 255;
+    --secondary: 248 247 255; /* Light purple background */
+    --secondary-foreground: 28 60 60;
+    --background: 255 255 255;
+    --foreground: 28 60 60;
+    --muted: 248 250 252;
+    --muted-foreground: 100 116 139;
+    --accent: 235 232 254; /* Purple accent */
+    --accent-foreground: 28 60 60;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 226 232 240;
+    --input: 226 232 240;
+    --ring: 28 60 60;
+    --card: 255 255 255;
+    --card-foreground: 28 60 60;
+    --popover: 255 255 255;
+    --popover-foreground: 28 60 60;
+    --radius: 0.5rem;
+
+    /* Custom LangChain Colors */
+    --langchain-purple: 235 232 254;
+    --langchain-orange: 255 237 213;
+    --langchain-green: 220 252 231;
+    --langchain-teal: 28 60 60;
+    --langchain-light-teal: 204 251 241;
+
+    /* Typography */
+    --font-heading: "Inter", system-ui, sans-serif;
+    --font-body: "Inter", system-ui, sans-serif;
   }
 
-  .dark {
-
-  }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-semibold text-foreground;
+  }
+}
+
+@layer components {
+  /* Hero Section */
+  .hero-background {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
+  }
+
+  /* Animated gradient backgrounds */
+  .gradient-purple {
+    background: linear-gradient(135deg, hsl(var(--langchain-purple)) 0%, hsl(var(--langchain-purple) / 0.5) 100%);
+  }
+
+  .gradient-orange {
+    background: linear-gradient(135deg, hsl(var(--langchain-orange)) 0%, hsl(var(--langchain-orange) / 0.5) 100%);
+  }
+
+  .gradient-green {
+    background: linear-gradient(135deg, hsl(var(--langchain-green)) 0%, hsl(var(--langchain-green) / 0.5) 100%);
+  }
+
+  /* Logo marquee animation */
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll 30s linear infinite;
+  }
+
+  .animate-scroll-reverse {
+    animation: scroll 30s linear infinite reverse;
+  }
+
+  /* Agent stack animations */
+  .agent-tab-active {
+    @apply bg-langchain-purple;
+  }
+
+  /* Stats animations */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out forwards;
+  }
+
+  /* Custom button variants */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-lg font-semibold transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border border-primary text-primary hover:bg-primary hover:text-primary-foreground px-6 py-3 rounded-lg font-semibold transition-all;
+  }
+
+  /* Power stack cards */
+  .power-stack-card {
+    @apply bg-white rounded-2xl p-8 shadow-lg border border-gray-100;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .power-stack-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Use case cards */
+  .use-case-card {
+    @apply bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow;
+  }
+
+  /* Navigation styles */
+  .navbar-blur {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.9);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .bg-langchain-purple {
+    background-color: hsl(var(--langchain-purple));
+  }
+
+  .bg-langchain-orange {
+    background-color: hsl(var(--langchain-orange));
+  }
+
+  .bg-langchain-green {
+    background-color: hsl(var(--langchain-green));
+  }
+
+  .text-langchain-teal {
+    color: hsl(var(--langchain-teal));
   }
 }
